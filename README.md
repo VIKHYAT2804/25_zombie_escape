@@ -1,84 +1,43 @@
 # Zombie Escape
 
-Top-down wave survival shooter — WASD to move, click to shoot zombies.
+Top-down wave survival shooter. Survive increasingly difficult zombie waves,
+manage your ammunition, and use explosive barrels to clear groups of zombies.
 
-## Getting Started
+## Installation and running
 
-This game uses **pygame**. Install it before running:
+The game uses Python and Pygame. From the project folder, install the Pygame
+Community Edition package:
 
 ```bash
-pip install pygame-ce
+python -m pip install pygame-ce
 python game.py
 ```
 
-> **Note:** If you are on Python 3.12 or newer, use `pygame-ce` (Community Edition) instead of `pygame`. It is a drop-in replacement with the same API.
-
+`pygame-ce` provides the `pygame` module used by the game.
 
 ## Controls
 
 | Key | Action |
 |-----|--------|
-| W/A/S/D | Move |
-| Left Click | Shoot toward cursor |
-| R | Restart |
+| W/A/S/D or Arrow Keys | Move |
+| Left Click | Shoot toward the cursor |
+| R | Reload; after game over, restart |
 
-## Before changing the code
+## Gameplay
 
-Play several waves and observe how zombies spawn, move, and are killed. Trace the shooting logic from click event through `Player` to bullet collision. Understand wave progression and how score and kill counters interact before making any modifications.
-
-## Task 1 — Health System
-
-Give the player 3 HP. One zombie touch subtracts 1 HP; the game ends only when HP reaches 0. Add a brief invincibility window after each hit to prevent instant death. Show HP in the HUD.
-
-**Done when:** the player survives multiple zombie touches, the invincibility window is visible, and the game over screen appears only at 0 HP.
-
-## Task 2 — Ammo System
-
-Limit the player to 12 bullets per clip. Prevent shooting when empty and trigger a reload that takes 2 seconds before ammo is restored. Display ammo count in the HUD.
-
-**Done when:** shooting is blocked at 0 ammo, a reload timer counts down correctly, and ammo is restored only after the full reload duration.
-
-## Task 3 — Explosive Barrel
-
-Place 4 barrels on the map. A bullet hitting a barrel triggers an explosion that destroys all zombies within a fixed radius. Remove the barrel after it explodes.
-
-**Done when:** barrels are visible on the map, a bullet collision triggers the explosion effect, nearby zombies are removed, and the barrel disappears.
-
-## Task 4 — Zombie Types
-
-Add a Fast Zombie (higher speed, 1 HP, smaller) and a Tank Zombie (lower speed, 6 HP, larger). Mix both types into wave spawning alongside the standard zombie.
-
-**Done when:** both subtypes spawn correctly in waves, their distinct stats are reflected in combat, and wave progression still functions.
-
-## Required testing
-
-Survive several waves, take hits to verify the health and invincibility system, empty and reload a clip, shoot a barrel next to a group of zombies, verify both new zombie types spawn and behave correctly, and confirm game over triggers only at 0 HP. Test restarting after game over.
-
-## LLM usage
-
-You may use an LLM during the lab. The goal is to use it as a coding assistant while retaining responsibility for understanding and testing the result.
-
-- Inspect the existing code before asking for changes.
-- Ask for explanations when you do not understand a proposed change.
-- Test generated code against the stated behaviour and edge cases.
-- Keep your complete LLM chat history for submission.
-- Do not replace the whole project with an unrelated implementation.
-
-## Submission checklist
-
-- [ ] Tasks 1–4 completed and tested.
-- [ ] Health system with invincibility frames works correctly.
-- [ ] Ammo limit and reload mechanic work correctly.
-- [ ] Barrels explode and remove nearby zombies.
-- [ ] Fast and Tank zombie types spawn and behave as specified.
-- [ ] No unnecessary external dependencies added beyond pygame.
-- [ ] Code remains understandable and modular.
-- [ ] Complete LLM chat-history link included.
-
-## Submission
-
-Submission is only the following three things:
-
-- [ ] A 10-second video of gameplay **before** your changes
-- [ ] A 10-second video of gameplay **after** your changes, showing the new features working
-- [ ] The Chat/LLM used page link, with the complete chat history
+- **Health:** The player starts with 3 HP. A zombie touch removes 1 HP. After
+  taking damage, the player has a 1-second invincibility period and blinks.
+  The game ends at 0 HP. Health is shown in the HUD.
+- **Ammunition:** The magazine holds 12 bullets. Each shot uses one bullet;
+  shooting is blocked while empty or reloading. Press **R** to reload, which
+  takes 2 seconds. The HUD shows ammunition or the remaining reload time.
+- **Explosive barrels:** Four barrels are placed around the arena at the start
+  of each game. Shooting one removes it and creates an explosion that destroys
+  zombies within 115 pixels. Barrels do not respawn after exploding.
+- **Zombie types:** Normal zombies have 3 HP and standard speed. Fast zombies
+  are smaller, faster, and have 1 HP. Tank zombies are larger, slower, and have
+  6 HP. New waves add fast zombies from wave 2 and tank zombies from wave 3,
+  alongside normal zombies.
+- **Waves and score:** Eliminate the required number of zombies to advance.
+  The score combines time survived and kill bonuses. Press **R** on the game
+  over screen to start a fresh game.
